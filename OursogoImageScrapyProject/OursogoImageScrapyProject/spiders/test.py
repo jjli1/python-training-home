@@ -5,7 +5,7 @@ import scrapy
 class TestSpider(scrapy.Spider):
     name = 'test'
     allowed_domains = ['oursogo.com']
-    start_urls = ['https://oursogo.com/forum-2-1.html']
+    start_urls = ['https://oursogo.com/forum-16-1.html']
     # default_headers = {
     #     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     #     'Accept-Encoding': 'gzip, deflate, sdch, br',
@@ -37,6 +37,10 @@ class TestSpider(scrapy.Spider):
 
     def contentPageParse(self, response):
         imageUrlList = response.css(
-            'div.t_fsz ignore_js_op img::attr(file)').extract()
+            'ignore_js_op img::attr(file)').extract()
+        imageNameList = response.css(
+            'ignore_js_op img::text').extract()
         for imageUrl in imageUrlList:
-            print('-->', imageUrl)
+            print('-->', 'https://'+self.allowed_domains[0]+'/'+imageUrl)
+        for imageName in imageNameList:
+            print('--=====>', imageName)
