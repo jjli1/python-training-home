@@ -1,11 +1,11 @@
 import scrapy
-from ..items import TopicPageItem
+# from ..items import TopicPageItem
 
 
 class TestSpider(scrapy.Spider):
     name = 'test'
     allowed_domains = ['oursogo.com']
-    start_urls = ['https://oursogo.com/forum-3-1.html']
+    start_urls = ['https://oursogo.com/forum-2-1.html']
     # default_headers = {
     #     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
     #     'Accept-Encoding': 'gzip, deflate, sdch, br',
@@ -30,8 +30,13 @@ class TestSpider(scrapy.Spider):
 
         if list_contentUrls:
             for contentUrl in list_contentUrls:
-                item = TopicPageItem()
-                item['image_filepath'] = contentUrl.css('::text').extract()
-                item['contentpage_url'] = contentUrl.css(
-                    '::attr(href)').extract()
-                yield item
+                image_filepath = contentUrl.css('::text')[0].extract()
+                contentpage_url = contentUrl.css('::attr(href)')[0].extract()
+                print(image_filepath, contentpage_url)
+                yield(scrapy.Request(contentpage_url, callback=self.contentPageParse, dont_filter=True))
+
+    def contentPageParse(self, response):
+        imageUrlList = response.css(
+            'div.t_fsz ignore_js_op img::attr(file)').extract()
+        for imageUrl in imageUrlList:
+            print('-->', imageUrl)
