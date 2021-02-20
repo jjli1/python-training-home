@@ -1,4 +1,4 @@
-# Scrapy settings for OursogoImageScrapyProject project
+# Scrapy settings for ImagesRename project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -6,16 +6,15 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-FEED_EXPORT_ENCODING = 'utf-8'
 
-BOT_NAME = 'OursogoImageScrapyProject'
+BOT_NAME = 'ImagesRename'
 
-SPIDER_MODULES = ['OursogoImageScrapyProject.spiders']
-NEWSPIDER_MODULE = 'OursogoImageScrapyProject.spiders'
+SPIDER_MODULES = ['ImagesRename.spiders']
+NEWSPIDER_MODULE = 'ImagesRename.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/88.0.4324.150 Safari/537.36'
+#USER_AGENT = 'ImagesRename (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -32,7 +31,7 @@ ROBOTSTXT_OBEY = False
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-COOKIES_ENABLED = True
+#COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -46,18 +45,14 @@ COOKIES_ENABLED = True
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 # SPIDER_MIDDLEWARES = {
-#    'OursogoImageScrapyProject.middlewares.OursogoimagescrapyprojectSpiderMiddleware': 543,
+#    'ImagesRename.middlewares.ImagesrenameSpiderMiddleware': 543,
 # }
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 # DOWNLOADER_MIDDLEWARES = {
-#    'OursogoImageScrapyProject.middlewares.OursogoimagescrapyprojectDownloaderMiddleware': 543,
+#    'ImagesRename.middlewares.ImagesrenameDownloaderMiddleware': 543,
 # }
-DOWNLOADER_MIDDLEWARES = {
-    'OursogoImageScrapyProject.middlewares.SimpleProxyMiddleware': 100,
-    'OursogoImageScrapyProject.middlewares.OursogoimagescrapyprojectDownloaderMiddleware': 543,
-}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -68,7 +63,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 # ITEM_PIPELINES = {
-#    'OursogoImageScrapyProject.pipelines.OursogoimagescrapyprojectPipeline': 300,
+#    'ImagesRename.pipelines.ImagesrenamePipeline': 300,
 # }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -93,10 +88,13 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 IMAGES_STORE = 'd:\\TEMP'
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 3
+DOWNLOADER_MIDDLEWARES = {
+    'ImagesRename.middlewares.SimpleProxyMiddleware': 1,
+    'ImagesRename.middlewares.ImagesrenameDownloaderMiddleware': 543,
+}
 ITEM_PIPELINES = {
-    'OursogoImageScrapyProject.pipelines.TextPipeline': 100,
-    'OursogoImageScrapyProject.pipelines.ImagesrenamePipeline': 300
+    'ImagesRename.pipelines.ImagesrenamePipeline': 300,
 }
 PROXYLISTOFFICE = ['http://proxy.cht.com.tw:8080',
                    'https://proxy.cht.com.tw:8080']

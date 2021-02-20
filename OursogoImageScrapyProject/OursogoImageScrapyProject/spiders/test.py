@@ -1,5 +1,5 @@
 import scrapy
-from ..items import ImageItem
+from ..items import ImagesrenameItem
 
 
 class TestSpider(scrapy.Spider):
@@ -32,22 +32,13 @@ class TestSpider(scrapy.Spider):
                 contentpage_url = contentUrl.css('::attr(href)')[0].extract()
                 # print(image_filepath, contentpage_url)
                 yield(scrapy.Request(contentpage_url, callback=self.contentPageParse, dont_filter=True))
-                break
 
     def contentPageParse(self, response):
-        imageUrlList = response.css('ignore_js_op img::attr(file)').extract()
-        for imageUrl in imageUrlList:
-            # print('-->', 'https://'+self.allowed_domains[0]+'/'+imageUrl)
-            item = ImageItem()
-            item['image_path'] = 'f:/temp'
-            item['image_url'] = 'https://' + \
-                self.allowed_domains[0]+'/'+imageUrl
-            yield item
-
-    # def contentPageParse(self, response):
-    #     imageUrlList = response.css('ignore_js_op img::attr(file)').extract()
-    #     print('------------------->imageUrlList=', imageUrlList)
-    #     if imageUrlList:
-    #         item = ImagesItem()
-    #         item['image_urls'] = imageUrlList
-    #         yield item
+        item = ImagesrenameItem()
+        item['domainurl'] = 'https://oursogo.com/'
+        # 注意imgurls是一个集合也就是多张图片
+        item['imgurl'] = response.css('ignore_js_op img::attr(file)').extract()
+        # 抓取文章标题作为图集名称
+        item['imgname'] = response.css(
+            "h1.ts > a#thread_subject ::text").extract_first()
+        yield item

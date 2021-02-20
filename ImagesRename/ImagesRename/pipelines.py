@@ -7,23 +7,10 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-from scrapy.exceptions import DropItem
-from scrapy import Request
-from scrapy.pipelines.images import ImagesPipeline
+
 import re
-
-
-class TextPipeline(object):
-    def __init__(self):
-        self.imgurlList = []
-
-    def process_item(self, item, spider):
-        print('------------>process_item')
-        for imgurl in item['imgurl']:
-            self.imgurlList.append(item['domainurl']+imgurl)
-        print('imgurlList=', self.imgurlList)
-        item['imgurl'] = self.imgurlList
-        return item
+from scrapy.pipelines.images import ImagesPipeline
+from scrapy import Request
 
 
 class ImagesrenamePipeline(ImagesPipeline):
