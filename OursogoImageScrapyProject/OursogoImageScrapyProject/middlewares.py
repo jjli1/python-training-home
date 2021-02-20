@@ -130,7 +130,7 @@ class SimpleProxyMiddleware:
     def process_response(self, request, response, spider):
         # 請求失敗不等於200
         print('****response.status=', response.status)
-        if response.status != 200:
+        if response.status != 200 and response.status != 404:
             # 重新選擇一個代理ip
             proxy = random.choice(self.proxyList).strip()
             print("this is response ip:" + proxy)

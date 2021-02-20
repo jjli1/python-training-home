@@ -21,7 +21,6 @@ class TextPipeline(object):
         print('------------>process_item')
         for imgurl in item['imgurl']:
             self.imgurlList.append(item['domainurl']+imgurl)
-        print('imgurlList=', self.imgurlList)
         item['imgurl'] = self.imgurlList
         return item
 

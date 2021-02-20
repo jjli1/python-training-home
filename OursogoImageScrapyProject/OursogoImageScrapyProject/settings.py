@@ -93,10 +93,10 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 IMAGES_STORE = 'd:\\TEMP'
-DOWNLOAD_DELAY = 1
+DOWNLOAD_DELAY = 0.5
 ITEM_PIPELINES = {
     'OursogoImageScrapyProject.pipelines.TextPipeline': 100,
     'OursogoImageScrapyProject.pipelines.ImagesrenamePipeline': 300
 }
 PROXYLISTOFFICE = ['http://proxy.cht.com.tw:8080',
-                   'https://proxy.cht.com.tw:8080']
+                   'http://proxy.cht.com.tw:8080']
