@@ -12,10 +12,7 @@ class OursogoimagescrapyprojectItem(scrapy.Item):
     pass
 
 
-class TopicPageItem(scrapy.Item):
-    # define the fields for your item here like:
-    # # name = scrapy.Field()
-    # contentFilepaths = scrapy.Field()
-    # contentPageUrls = scrapy.Field()
-    image_filepath = scrapy.Field()
-    contentpage_url = scrapy.Field()
+class ImageItem(scrapy.Item):
+    image_url = scrapy.Field()
+    image = scrapy.Field()
+    image_path = scrapy.Field()

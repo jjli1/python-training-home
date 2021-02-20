@@ -7,6 +7,7 @@ from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
+import random
 
 
 class OursogoimagescrapyprojectSpiderMiddleware:
@@ -101,3 +102,39 @@ class OursogoimagescrapyprojectDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class SimpleProxyMiddleware:
+    # 宣告一個數組
+    proxyList = []
+
+    def __init__(self, proxyList):
+        self.proxyList = proxyList
+
+    @classmethod
+    def from_crawler(cls, crawler):
+        return cls(
+            proxyList=crawler.settings.get('PROXYLISTOFFICE'),
+        )
+
+    # Downloader Middleware的核心方法，只有實現了其中一個或多個方法才算自定義了一個Downloader Middleware
+    def process_request(self, request, spider):
+        # 隨機從其中選擇一個，並去除左右兩邊空格
+        proxy = random.choice(self.proxyList).strip()
+        # 列印結果出來觀察
+        print("->this is request ip:" + proxy)
+        # 設定request的proxy屬性的內容為代理ip
+        request.meta['proxy'] = proxy
+
+    # Downloader Middleware的核心方法，只有實現了其中一個或多個方法才算自定義了一個Downloader Middleware
+    def process_response(self, request, response, spider):
+        # 請求失敗不等於200
+        print('****response.status=', response.status)
+        if response.status != 200:
+            # 重新選擇一個代理ip
+            proxy = random.choice(self.proxyList).strip()
+            print("this is response ip:" + proxy)
+            # 設定新的代理ip內容
+            request.meta['proxy'] = proxy
+            return request
+        return response

@@ -7,16 +7,10 @@ from scrapy import signals
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
-
-from scrapy.downloadermiddlewares.httpproxy import HttpProxyMiddleware
-from collections import defaultdict
-import json
 import random
-from scrapy.utils.httpobj import urlparse_cached
-import scrapy.exceptions
 
 
-class ImagescrapytestprojectSpiderMiddleware:
+class TutorialSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -63,7 +57,7 @@ class ImagescrapytestprojectSpiderMiddleware:
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-class ImagescrapytestprojectDownloaderMiddleware:
+class TutorialDownloaderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
@@ -110,78 +104,37 @@ class ImagescrapytestprojectDownloaderMiddleware:
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-# class RandomProxyMiddleware(HttpProxyMiddleware):
-#     def __init__(self, auth_encoding="latin-1", proxy_list_file=None):
-#         print('RandomProxyMiddleware')
-#         if not proxy_list_file:
-#             raise NotConfigured
-#         self.auth_encoding = auth_encoding
-#         self.proxies = defaultdict(list)
+class SimpleProxyMiddleware:
+    # 宣告一個數組
+    proxyList = []
 
-#         with open(proxy_list_file) as f:
-#             proxy_list = json.load(f)
-#             for proxy in proxy_list:
-#                 scheme = proxy["scheme"]
-#                 url = proxy["proxy"]
-#                 if self._get_proxy(url, scheme) not in self.proxies[scheme]:
-#                     self.proxies[scheme].append(self._get_proxy(url, scheme))
-
-#     @classmethod
-#     def from_crawler(cls, crawler):
-#         auth_encoding = crawler.settings.get(
-#             "HTTPPROXY_AUTH_ENCODING", "latin-1")
-#         proxy_list_file = crawler.settings.get("PROXY_LIST_FILE")
-#         return cls(auth_encoding, proxy_list_file)
-
-#     def _set_proxy(self, request, scheme):
-#         creds, proxy = random.choice(self.proxies[scheme])
-#         request.meta["proxy"] = proxy
-#         print(':::::::', self.proxies, ':::::::')
-#         if creds:
-#             request.headers["Proxy-Authorization"] = b"Basic" + creds
-
-#     def process_request(self, request, spider):
-#         parsed = urlparse_cached(request)
-#         scheme = parsed.scheme
-#         print('------------->_scheme=', scheme)
-#         print('------------->_process_request.meta=', request.meta)
-
-#         # ignore if proxy is already set
-#         if 'proxy' not in request.meta:
-#             self._set_proxy(request, scheme)
-class RandomProxyMiddleware(HttpProxyMiddleware):
-    def __init__(self, auth_encoding="latin-1", proxylist=None):
-        print('RandomProxyMiddleware')
-        if not proxylist:
-            raise scrapy.exceptions.NotConfigured
-        self.auth_encoding = auth_encoding
-        self.proxies = proxylist
-        print(self.proxies)
+    def __init__(self, proxyList):
+        self.proxyList = proxyList
 
     @classmethod
     def from_crawler(cls, crawler):
-        auth_encoding = crawler.settings.get(
-            "HTTPPROXY_AUTH_ENCODING", "latin-1")
-        proxylist = crawler.settings.get("PROXYLIST3")
-        return cls(auth_encoding, proxylist)
+        return cls(
+            proxyList=crawler.settings.get('PROXYLISTOFFICE'),
+        )
 
-    def _set_proxy(self, request, scheme):
-        proxy = random.choice(self.proxies)
-        print('===>_set_proxy='+proxy)
-        try:
-            request.meta["proxy"] = proxy
-        except Exception(e):
-            print('!!!!!!!!!!', e)
-        # print(':::::::', self.proxies, ':::::::')
-        # if creds:
-        #     request.headers["Proxy-Authorization"] = b"Basic" + creds
-
+    # Downloader Middleware的核心方法，只有實現了其中一個或多個方法才算自定義了一個Downloader Middleware
     def process_request(self, request, spider):
-        parsed = urlparse_cached(request)
-        scheme = parsed.scheme
-        print('------------->_scheme=', scheme)
-        print('------------->_process_request.meta=', request.meta)
+        # 隨機從其中選擇一個，並去除左右兩邊空格
+        proxy = random.choice(self.proxyList).strip()
+        # 列印結果出來觀察
+        print("->this is request ip:" + proxy)
+        # 設定request的proxy屬性的內容為代理ip
+        request.meta['proxy'] = proxy
 
-        # ignore if proxy is already set
-        if 'proxy' not in request.meta:
-            self._set_proxy(request, scheme)
+    # Downloader Middleware的核心方法，只有實現了其中一個或多個方法才算自定義了一個Downloader Middleware
+    def process_response(self, request, response, spider):
+        # 請求失敗不等於200
+        print('****response.status=', response.status)
+        if response.status != 200:
+            # 重新選擇一個代理ip
+            proxy = random.choice(self.proxyList).strip()
+            print("this is response ip:" + proxy)
+            # 設定新的代理ip內容
+            request.meta['proxy'] = proxy
+            return request
+        return response
