@@ -29,7 +29,7 @@ ROBOTSTXT_OBEY = False
 #DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
-#CONCURRENT_REQUESTS_PER_IP = 16
+CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
 COOKIES_ENABLED = True
@@ -55,7 +55,7 @@ COOKIES_ENABLED = True
 #    'OursogoImageScrapyProject.middlewares.OursogoimagescrapyprojectDownloaderMiddleware': 543,
 # }
 DOWNLOADER_MIDDLEWARES = {
-    'OursogoImageScrapyProject.middlewares.SimpleProxyMiddleware': 100,
+    # 'OursogoImageScrapyProject.middlewares.SimpleProxyMiddleware': 100,
     'OursogoImageScrapyProject.middlewares.OursogoimagescrapyprojectDownloaderMiddleware': 543,
 }
 
@@ -92,11 +92,14 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-IMAGES_STORE = 'd:\\TEMP'
-DOWNLOAD_DELAY = 0.5
+IMAGES_STORE = 'z:\\TEMP'
+# DOWNLOAD_DELAY = 0.5
 ITEM_PIPELINES = {
     'OursogoImageScrapyProject.pipelines.TextPipeline': 100,
     'OursogoImageScrapyProject.pipelines.ImagesrenamePipeline': 300
 }
 PROXYLISTOFFICE = ['http://proxy.cht.com.tw:8080',
                    'http://proxy.cht.com.tw:8080']
+
+PROXYLISTHOME = ['http://18.218.50.138:50000',
+                 'http://205.141.197.38:8080', 'http://162.223.91.10:8080']

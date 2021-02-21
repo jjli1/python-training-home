@@ -13,6 +13,7 @@ class OursogoimagescrapyprojectItem(scrapy.Item):
 
 
 class ImagesrenameItem(scrapy.Item):
-    domainurl = scrapy.Field()
-    imgurl = scrapy.Field()
-    imgname = scrapy.Field()
+    refererUrl = scrapy.Field()
+    domainUrl = scrapy.Field()
+    imgUrl = scrapy.Field()
+    imgName = scrapy.Field()

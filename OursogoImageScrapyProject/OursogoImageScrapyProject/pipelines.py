@@ -14,23 +14,21 @@ import re
 
 
 class TextPipeline(object):
-    def __init__(self):
-        self.imgurlList = []
-
     def process_item(self, item, spider):
         print('------------>process_item')
-        for imgurl in item['imgurl']:
-            self.imgurlList.append(item['domainurl']+imgurl)
-        item['imgurl'] = self.imgurlList
+        imgUrlList = []
+        for imgUrl in item['imgUrl']:
+            imgUrlList.append(item['domainUrl']+imgUrl)
+        item['imgUrl'] = imgUrlList
         return item
 
 
 class ImagesrenamePipeline(ImagesPipeline):
     def get_media_requests(self, item, info):
         # 循环每一张图片地址下载，若传过来的不是集合则无需循环直接yield
-        for image_url in item['imgurl']:
+        for image_url in item['imgUrl']:
             # meta里面的数据是从spider获取，然后通过meta传递给下面方法：file_path
-            yield Request(image_url, meta={'name': item['imgname']})
+            yield Request(image_url, meta={'name': item['imgName']}, headers={'Referer': item['refererUrl']})
 
     # 重命名，若不重写这函数，图片名为哈希，就是一串乱七八糟的名字
     def file_path(self, request, response=None, info=None):

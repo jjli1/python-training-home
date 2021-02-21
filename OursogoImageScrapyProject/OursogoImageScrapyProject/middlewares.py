@@ -114,7 +114,7 @@ class SimpleProxyMiddleware:
     @classmethod
     def from_crawler(cls, crawler):
         return cls(
-            proxyList=crawler.settings.get('PROXYLISTOFFICE'),
+            proxyList=crawler.settings.get('PROXYLISTHOME'),
         )
 
     # Downloader Middleware的核心方法，只有實現了其中一個或多個方法才算自定義了一個Downloader Middleware
