@@ -6,7 +6,7 @@ import re
 class TestSpider(scrapy.Spider):
     name = 'test'
     allowed_domains = ['oursogo.com']
-    start_urls = ['https://oursogo.com/forum-16-200.html']
+    start_urls = ['https://oursogo.com/forum-2-500.html']
     # start_urls = ['https://oursogo.com/search.php?mod=forum&searchid=890&orderby=dateline&ascdesc=desc&searchsubmit=yes&sn=&kw=metart']
     # default_headers = {
     #     'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8',
