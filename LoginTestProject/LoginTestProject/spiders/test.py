@@ -1,4 +1,5 @@
 import scrapy
+import logging
 
 
 class TestSpider(scrapy.Spider):
@@ -14,6 +15,9 @@ class TestSpider(scrapy.Spider):
 
     def after_login(self, response):
         # check login succeed before going on
-        if "authentication failed" in response.text:
-            self.log("Login failed", level=log.ERROR)
-            return
+        if "抱歉，您所在的用戶組(訪客)無法進行此操作" in response.text:
+            # self.log("Login failed", level=log.ERROR)
+            print("---->Login fail")
+        else:
+            print("---->Login success")
+        return
