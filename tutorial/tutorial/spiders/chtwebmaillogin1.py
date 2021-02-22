@@ -12,8 +12,8 @@ class GithubLogin2Spider(scrapy.Spider):
         print('------>1')
         form_data = {
             'remember': '',
-            'USERID': 'jjli',
-            'PASSWD': 'feb@1020'
+            'USERID': '',
+            'PASSWD': ''
         }
         yield scrapy.FormRequest.from_response(response, formdata=form_data, callback=self.after_login, dont_filter=True)
 

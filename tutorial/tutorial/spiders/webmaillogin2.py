@@ -13,8 +13,8 @@ class Webmaillogin2Spider(scrapy.Spider):
         print('------>1')
         form_data = {
             'remember': '',
-            'USERID': 'jjli',
-            'PASSWD': 'feb@1020'
+            'USERID': '',
+            'PASSWD': ''
         }
         yield scrapy.FormRequest(self.login_url, formdata=form_data, callback=self.after_login)
 
