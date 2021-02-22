@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = 'tutorial.spiders'
 #USER_AGENT = 'tutorial (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = False
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -90,8 +90,7 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-PROXYLISTOFFICE = ['http://proxy.cht.com.tw:8080',
-                   'https://proxy.cht.com.tw:8080']
+PROXYLISTOFFICE = ['http://proxy.cht.com.tw:8080']
 ITEM_PIPELINES = {
     'tutorial.pipelines.TextPipeline': 300,
 }
