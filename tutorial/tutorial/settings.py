@@ -54,7 +54,7 @@ ROBOTSTXT_OBEY = False
 #    'tutorial.middlewares.TutorialDownloaderMiddleware': 543,
 # }
 DOWNLOADER_MIDDLEWARES = {
-    'tutorial.middlewares.SimpleProxyMiddleware': 1,
+    # 'tutorial.middlewares.SimpleProxyMiddleware': 1,
     'tutorial.middlewares.TutorialDownloaderMiddleware': 543,
 }
 
@@ -90,7 +90,7 @@ DOWNLOADER_MIDDLEWARES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-PROXYLISTOFFICE = ['http://proxy.cht.com.tw:8080']
+PROXYLISTOFFICE = ['DIRECT']
 ITEM_PIPELINES = {
     'tutorial.pipelines.TextPipeline': 300,
 }

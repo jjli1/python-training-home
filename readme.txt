@@ -1,0 +1,9 @@
+https://yococoxc.github.io/15445992804054.html
+https://www.cnblogs.com/qcloud1001/p/6826573.html
+https://kknews.cc/zh-tw/code/ml9x2q9.html
+https://kknews.cc/code/9zyojqq.html
+http://quotes.toscrape.com/
+https://towardsdatascience.com/scrapy-this-is-how-to-successfully-login-with-ease-ea980e2c5901
+https://stackoverflow.com/questions/50600074/is-there-any-quick-way-to-check-whether-scrapy-login-a-website-successfully
+https://webcache.googleusercontent.com/search?q=cache:ZYofzNgB5uEJ:https://www.mdeditor.tw/pl/pwhL/zh-tw+&cd=10&hl=zh-TW&ct=clnk&gl=tw
+https://walkonnet.com/archives/17937
