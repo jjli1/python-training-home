@@ -17,9 +17,14 @@ from django.conf.urls import include, url
 from django.contrib import admin
 from django.urls import path
 from trips.views import hello_world
+from trips.views import home
+from trips.views import post_detail
 import re
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    # url(r'^admin/', include(admin.site.urls)),
     url(r'^hello/$', hello_world),
+    url(r'^$', home),
+    url(r'^post/(?P<pk>\d+)/$', post_detail, name='post_detail'),
 ]

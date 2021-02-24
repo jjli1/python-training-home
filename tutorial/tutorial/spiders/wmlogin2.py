@@ -13,14 +13,15 @@ class Webmaillogin2Spider(scrapy.Spider):
         print('------>1')
         form_data = {
             'remember': '',
-            'USERID': '',
-            'PASSWD': ''
+            'USERID': self.username,
+            'PASSWD': self.password
         }
         yield scrapy.FormRequest(self.login_url, formdata=form_data, callback=self.after_login)
 
     def parse(self, response):
+        #   re.sub(r'[？\\*|“<>:/]', '', response.text.encode('raw_unicode_escape').decode('unicode_escape')))
         print('------>parse',
-              re.sub(r'[？\\*|“<>:/]', '', response.text.encode('raw_unicode_escape').decode('unicode_escape')))
+              response.text.encode('raw_unicode_escape').decode('unicode_escape'))
 
     def after_login(self, response):  # 驗證是否請求成功
         # print('------>', re.findall('Discover interesting projects and people to populate your personal',response.body.decode()))
